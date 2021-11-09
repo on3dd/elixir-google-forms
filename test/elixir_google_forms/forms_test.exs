@@ -224,4 +224,60 @@ defmodule ElixirGoogleForms.FormsTest do
       assert %Ecto.Changeset{} = Forms.change_form(form)
     end
   end
+
+  describe "form_fields" do
+    alias ElixirGoogleForms.Forms.FormField
+
+    import ElixirGoogleForms.FormsFixtures
+
+    @invalid_attrs %{title: nil, value: nil}
+
+    test "list_form_fields/0 returns all form_fields" do
+      form_field = form_field_fixture()
+      assert Forms.list_form_fields() == [form_field]
+    end
+
+    test "get_form_field!/1 returns the form_field with given id" do
+      form_field = form_field_fixture()
+      assert Forms.get_form_field!(form_field.id) == form_field
+    end
+
+    test "create_form_field/1 with valid data creates a form_field" do
+      valid_attrs = %{title: "some title", value: "some value"}
+
+      assert {:ok, %FormField{} = form_field} = Forms.create_form_field(valid_attrs)
+      assert form_field.title == "some title"
+      assert form_field.value == "some value"
+    end
+
+    test "create_form_field/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forms.create_form_field(@invalid_attrs)
+    end
+
+    test "update_form_field/2 with valid data updates the form_field" do
+      form_field = form_field_fixture()
+      update_attrs = %{title: "some updated title", value: "some updated value"}
+
+      assert {:ok, %FormField{} = form_field} = Forms.update_form_field(form_field, update_attrs)
+      assert form_field.title == "some updated title"
+      assert form_field.value == "some updated value"
+    end
+
+    test "update_form_field/2 with invalid data returns error changeset" do
+      form_field = form_field_fixture()
+      assert {:error, %Ecto.Changeset{}} = Forms.update_form_field(form_field, @invalid_attrs)
+      assert form_field == Forms.get_form_field!(form_field.id)
+    end
+
+    test "delete_form_field/1 deletes the form_field" do
+      form_field = form_field_fixture()
+      assert {:ok, %FormField{}} = Forms.delete_form_field(form_field)
+      assert_raise Ecto.NoResultsError, fn -> Forms.get_form_field!(form_field.id) end
+    end
+
+    test "change_form_field/1 returns a form_field changeset" do
+      form_field = form_field_fixture()
+      assert %Ecto.Changeset{} = Forms.change_form_field(form_field)
+    end
+  end
 end

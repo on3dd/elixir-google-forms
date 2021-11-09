@@ -101,4 +101,100 @@ defmodule ElixirGoogleForms.Forms do
   def change_form(%Form{} = form, attrs \\ %{}) do
     Form.changeset(form, attrs)
   end
+
+  alias ElixirGoogleForms.Forms.FormField
+
+  @doc """
+  Returns the list of form_fields.
+
+  ## Examples
+
+      iex> list_form_fields()
+      [%FormField{}, ...]
+
+  """
+  def list_form_fields do
+    Repo.all(FormField)
+  end
+
+  @doc """
+  Gets a single form_field.
+
+  Raises `Ecto.NoResultsError` if the Form field does not exist.
+
+  ## Examples
+
+      iex> get_form_field!(123)
+      %FormField{}
+
+      iex> get_form_field!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_form_field!(id), do: Repo.get!(FormField, id)
+
+  @doc """
+  Creates a form_field.
+
+  ## Examples
+
+      iex> create_form_field(%{field: value})
+      {:ok, %FormField{}}
+
+      iex> create_form_field(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_form_field(attrs \\ %{}) do
+    %FormField{}
+    |> FormField.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a form_field.
+
+  ## Examples
+
+      iex> update_form_field(form_field, %{field: new_value})
+      {:ok, %FormField{}}
+
+      iex> update_form_field(form_field, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_form_field(%FormField{} = form_field, attrs) do
+    form_field
+    |> FormField.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a form_field.
+
+  ## Examples
+
+      iex> delete_form_field(form_field)
+      {:ok, %FormField{}}
+
+      iex> delete_form_field(form_field)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_form_field(%FormField{} = form_field) do
+    Repo.delete(form_field)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking form_field changes.
+
+  ## Examples
+
+      iex> change_form_field(form_field)
+      %Ecto.Changeset{data: %FormField{}}
+
+  """
+  def change_form_field(%FormField{} = form_field, attrs \\ %{}) do
+    FormField.changeset(form_field, attrs)
+  end
 end
