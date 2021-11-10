@@ -14,7 +14,10 @@
     <%= error_tag f, :name %>
   
     <%= label f, :active_until %>
-    <%= my_datetime_select f, :active_until %>
+    <%= live_component ElixirGoogleFormsWeb.MyDatetimeSelectComponent, 
+      form: f, 
+      field: :active_until 
+    %>
     <%= error_tag f, :active_until %>
   
     <div>
