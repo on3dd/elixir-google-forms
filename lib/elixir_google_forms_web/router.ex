@@ -18,7 +18,13 @@ defmodule ElixirGoogleFormsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/form", FormController
+
+    live "/forms", FormsLive.Index, :index
+    live "/forms/new", FormsLive.Index, :new
+    live "/forms/:id/edit", FormsLive.Index, :edit
+
+    live "/forms/:id", FormsLive.Show, :show
+    live "/forms/:id/show/edit", FormsLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

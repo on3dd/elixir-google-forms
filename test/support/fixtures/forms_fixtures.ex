@@ -11,7 +11,7 @@ defmodule ElixirGoogleForms.FormsFixtures do
     {:ok, form} =
       attrs
       |> Enum.into(%{
-        active_until: ~U[2021-11-08 05:35:00Z],
+        active_until: ~U[2021-11-09 06:06:00Z],
         name: "some name"
       })
       |> ElixirGoogleForms.Forms.create_form()

@@ -1,0 +1,27 @@
+<h1>Show Form</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal ElixirGoogleFormsWeb.FormsLive.FormComponent,
+    id: @form.id,
+    title: @page_title,
+    action: @live_action,
+    form: @form,
+    return_to: Routes.forms_show_path(@socket, :show, @form) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @form.name %>
+  </li>
+
+  <li>
+    <strong>Active until:</strong>
+    <%= @form.active_until %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.forms_show_path(@socket, :edit, @form), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.forms_index_path(@socket, :index) %></span>
