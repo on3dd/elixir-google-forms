@@ -6,7 +6,7 @@ defmodule ElixirGoogleFormsWeb.FormsLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :forms, list_forms())}
+    {:ok, assign(socket, forms: list_forms())}
   end
 
   @impl true
@@ -18,12 +18,14 @@ defmodule ElixirGoogleFormsWeb.FormsLive.Index do
     socket
     |> assign(:page_title, "Edit Form")
     |> assign(:form, Forms.get_form!(id))
+    |> assign(:form_fields, Forms.list_form_fields_by_id(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Form")
     |> assign(:form, %Form{})
+    |> assign(:form_fields, [])
   end
 
   defp apply_action(socket, :index, _params) do

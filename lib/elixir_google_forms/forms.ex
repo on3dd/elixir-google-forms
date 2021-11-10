@@ -118,6 +118,19 @@ defmodule ElixirGoogleForms.Forms do
   end
 
   @doc """
+  Returns the list of form_fields by form id.
+
+  ## Examples
+
+      iex> list_form_fields_by_id(id)
+      [%FormField{}, ...]
+
+  """
+  def list_form_fields_by_id(id) do
+    from(f in FormField, where: f.form_id == ^id) |> Repo.all()
+  end
+
+  @doc """
   Gets a single form_field.
 
   Raises `Ecto.NoResultsError` if the Form field does not exist.

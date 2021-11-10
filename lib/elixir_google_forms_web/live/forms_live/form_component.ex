@@ -2,6 +2,7 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
   use ElixirGoogleFormsWeb, :live_component
 
   alias ElixirGoogleForms.Forms
+  alias ElixirGoogleForms.Forms.FormField
 
   @impl true
   def update(%{form: form} = assigns, socket) do
@@ -25,6 +26,11 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
 
   def handle_event("save", %{"form" => form_params}, socket) do
     save_form(socket, socket.assigns.action, form_params)
+  end
+
+  def handle_event("add_form_field", _params, socket) do
+    IO.inspect(socket.assigns, label: "socket.assigns")
+    {:noreply, assign(socket, form_fields: [%FormField{} | socket.assigns.form_fields])}
   end
 
   defp save_form(socket, :edit, form_params) do

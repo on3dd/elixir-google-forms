@@ -19,7 +19,21 @@
       field: :active_until 
     %>
     <%= error_tag f, :active_until %>
-  
+
+    <div>
+      <%= for {form_field, idx} <- Enum.with_index(@form_fields, 1) do %>
+        <p>
+          <%= idx %>: <%= form_field.title %>
+        </p>
+      <% end %>
+    </div>
+
+    <div>
+      <button phx-target={@myself} phx-click="add_form_field" type="button" class="button-add">
+        Add form field
+      </button>
+    </div>
+
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
