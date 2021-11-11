@@ -22,9 +22,11 @@
 
     <div>
       <%= for {form_field, idx} <- Enum.with_index(@form_fields, 1) do %>
-        <p>
-          <%= idx %>: <%= form_field.title %>
-        </p>
+        <%= live_component ElixirGoogleFormsWeb.FormsLive.FormFieldComponent,
+          form: f,
+          idx: idx,
+          form_field: form_field
+        %>
       <% end %>
     </div>
 

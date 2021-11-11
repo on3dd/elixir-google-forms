@@ -29,7 +29,6 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
   end
 
   def handle_event("add_form_field", _params, socket) do
-    IO.inspect(socket.assigns, label: "socket.assigns")
     {:noreply, assign(socket, form_fields: [%FormField{} | socket.assigns.form_fields])}
   end
 
