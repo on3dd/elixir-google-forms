@@ -1,0 +1,9 @@
+# Elixir build output
+_build
+
+# Internal stuff 
+deps
+test
+
+# JS node_modules (if exists)
+assets/**/node_modules

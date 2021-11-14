@@ -2,6 +2,7 @@ defmodule ElixirGoogleForms.Forms.Form do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, :binary_id, autogenerate: true}
   schema "forms" do
     field :active_until, :utc_datetime
     field :name, :string

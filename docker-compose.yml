@@ -1,0 +1,32 @@
+# TODO: make separate docker-compose.yml for prod env
+
+version: '3.8'
+
+services:
+  db:
+    container_name: elixir_google_forms_db
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: elixir_google_forms_dev
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  app:
+    container_name: elixir_google_forms_app
+    build: .
+    depends_on:
+      - db
+    environment:
+      MIX_ENV: dev
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - 4000:4000
+    volumes:
+      - ./:/app

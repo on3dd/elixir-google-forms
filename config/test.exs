@@ -1,5 +1,6 @@
 import Config
 
+# TODO: update test env
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

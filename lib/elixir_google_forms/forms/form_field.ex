@@ -1,7 +1,9 @@
+# TODO: consider to remove this one
 defmodule ElixirGoogleForms.Forms.FormField do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, :binary_id, autogenerate: true}
   schema "form_fields" do
     field :title, :string
     field :value, :string

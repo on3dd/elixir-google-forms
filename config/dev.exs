@@ -1,11 +1,10 @@
 import Config
 
+database_url = System.get_env("DATABASE_URL")
+
 # Configure your database
 config :elixir_google_forms, ElixirGoogleForms.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "elixir_google_forms_dev",
-  hostname: "localhost",
+  url: database_url,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -18,7 +17,7 @@ config :elixir_google_forms, ElixirGoogleForms.Repo,
 config :elixir_google_forms, ElixirGoogleFormsWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
