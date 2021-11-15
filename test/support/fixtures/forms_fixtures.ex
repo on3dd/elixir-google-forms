@@ -18,19 +18,4 @@ defmodule ElixirGoogleForms.FormsFixtures do
 
     form
   end
-
-  @doc """
-  Generate a form_field.
-  """
-  def form_field_fixture(attrs \\ %{}) do
-    {:ok, form_field} =
-      attrs
-      |> Enum.into(%{
-        title: "some title",
-        value: "some value"
-      })
-      |> ElixirGoogleForms.Forms.create_form_field()
-
-    form_field
-  end
 end
