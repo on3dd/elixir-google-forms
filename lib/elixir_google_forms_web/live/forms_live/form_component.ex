@@ -2,7 +2,6 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
   use ElixirGoogleFormsWeb, :live_component
 
   alias ElixirGoogleForms.Forms
-  alias ElixirGoogleForms.Forms.FormField
 
   @impl true
   def update(%{form: form} = assigns, socket) do
@@ -16,6 +15,8 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"form" => form_params}, socket) do
+    IO.inspect(form_params, label: "form_params")
+
     changeset =
       socket.assigns.form
       |> Forms.change_form(form_params)
@@ -28,9 +29,22 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
     save_form(socket, socket.assigns.action, form_params)
   end
 
-  def handle_event("add_form_field", _params, socket) do
-    {:noreply, assign(socket, form_fields: [%FormField{} | socket.assigns.form_fields])}
+  def handle_event("add_form_field", params, socket) do
+    IO.inspect(params, label: "inspecting params")
+    IO.inspect(socket.assigns.changeset, label: "inspecting socket.assigns.changeset")
+
+    changeset =
+      socket.assigns.changeset
+      |> Forms.add_form_field()
+
+    {:noreply, assign(socket, :changeset, changeset)}
   end
+
+  defp indexed_fields(%{changes: %{fields: fields}}) do
+    Enum.with_index(fields, 1)
+  end
+
+  defp indexed_fields(_), do: []
 
   defp save_form(socket, :edit, form_params) do
     case Forms.update_form(socket.assigns.form, form_params) do
