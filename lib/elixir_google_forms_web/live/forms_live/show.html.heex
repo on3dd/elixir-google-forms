@@ -10,7 +10,6 @@
 <% end %>
 
 <ul>
-
   <li>
     <strong>Name:</strong>
     <%= @form.name %>
@@ -21,7 +20,24 @@
     <%= @form.active_until %>
   </li>
 
+  <li>
+    <strong>Form fields:</strong>
+
+    <ol>
+      <%= for form_field <- @form.form_fields do %>
+        <li>
+          <strong>Title:</strong> <%= form_field.title %>, 
+          <strong>type:</strong> <%= form_field.type %>
+        </li>
+      <% end %>
+    </ol>
+  </li>
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.forms_show_path(@socket, :edit, @form), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.forms_index_path(@socket, :index) %></span>
+<span>
+  <%= live_patch "Edit", to: Routes.forms_show_path(@socket, :edit, @form), class: "button" %>
+</span>
+|
+<span>
+  <%= live_redirect "Back", to: Routes.forms_index_path(@socket, :index) %>
+</span>
