@@ -1,4 +1,4 @@
-<div>
+<div class="form-container">
   <h2><%= @title %></h2>
 
   <.form
@@ -20,28 +20,28 @@
     %>
     <%= error_tag f, :active_until %>
 
-    <div>
-      <%= for {form_field, idx} <- indexed_fields(@changeset) do %>
-        <%= live_component ElixirGoogleFormsWeb.FormsLive.FormFieldComponent,
-          id: idx,
-          idx: idx,
-          changeset: form_field
-        %>
+    <div class="form-fields-container">
+      <%= inputs_for f, :form_fields, fn v -> %>      
+        <div>
+          <%= label v, :title %>
+          <%= text_input v, :title %>
+          <%= error_tag v, :title %>  
+        </div>
       <% end %>
     </div>
 
-    <div>
+    <div class="button-container">
       <button 
-        phx-target={@myself} 
-        phx-click="add_form_field" 
         type="button" 
         class="button-add"
+        phx-target={@myself} 
+        phx-click="add_form_field" 
       >
         Add form field
       </button>
     </div>
 
-    <div>
+    <div class="button-container">
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
   </.form>

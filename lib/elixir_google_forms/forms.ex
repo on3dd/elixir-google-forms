@@ -6,7 +6,10 @@ defmodule ElixirGoogleForms.Forms do
   import Ecto.Query, warn: false
   alias ElixirGoogleForms.Repo
 
-  alias ElixirGoogleForms.Forms.Form
+  alias ElixirGoogleForms.Forms.{
+    Form,
+    FormField
+  }
 
   @doc """
   Returns the list of forms.
@@ -103,16 +106,29 @@ defmodule ElixirGoogleForms.Forms do
   end
 
   @doc """
-  Adds new form field into form changeset.
-  Returns an updated changeset.
+  Returns an `%Ecto.Changeset{}` for tracking form field changes.
 
   ## Examples
 
-      iex> add_form_field(changeset)
+      iex> change_form_field(form_field)
+      %Ecto.Changeset{data: %FormField{}}
+
+  """
+  def change_form_field(%FormField{} = form_field, attrs \\ %{}) do
+    FormField.changeset(form_field, attrs)
+  end
+
+  @doc """
+  Puts updated form_fields in form changeset.
+  Returns an updated form changeset.
+
+  ## Examples
+
+      iex> put_form_fields_in_changeset(changeset, form_fields)
       %Ecto.Changeset{data: %Form{}}
 
   """
-  def add_form_field(changeset) do
-    Form.add_field_to_changeset(changeset)
+  def put_form_fields_in_changeset(changeset, form_fields) do
+    Form.put_form_fields_in_changeset(changeset, form_fields)
   end
 end

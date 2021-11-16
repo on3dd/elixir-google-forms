@@ -7,7 +7,7 @@ defmodule ElixirGoogleForms.Forms.Form do
   schema "forms" do
     field :active_until, :utc_datetime
     field :name, :string
-    embeds_many :fields, FormField
+    embeds_many :form_fields, FormField
 
     timestamps()
   end
@@ -16,23 +16,14 @@ defmodule ElixirGoogleForms.Forms.Form do
   def changeset(form, attrs) do
     form
     |> cast(attrs, [:name, :active_until])
-    |> cast_embed(:fields, required: true)
+    |> cast_embed(:form_fields)
     |> validate_required([:name, :active_until])
   end
 
-  def add_field_to_changeset(%{changes: %{fields: fields}} = changeset) do
-    IO.puts("add_field_to_changeset case 1")
-    put_field_to_changeset(changeset, fields)
-  end
+  def put_form_fields_in_changeset(changeset, form_fields) do
+    IO.puts("put_field_to_changeset")
+    IO.inspect(form_fields, label: "inspecting form_fields")
 
-  def add_field_to_changeset(%{data: %{fields: fields}} = changeset) do
-    IO.puts("add_field_to_changeset case 2")
-    put_field_to_changeset(changeset, fields)
-  end
-
-  defp put_field_to_changeset(changeset, fields) do
-    IO.inspect(fields, label: "fields in put_field_to_changeset")
-
-    put_embed(changeset, :fields, fields ++ [%FormField{title: ""}])
+    put_embed(changeset, :form_fields, form_fields)
   end
 end
