@@ -3,7 +3,7 @@ defmodule ElixirGoogleForms.Forms.FormField do
   import Ecto.Changeset
 
   embedded_schema do
-    field :title, :string, default: ""
+    field :title, :string
     field :type, :string, default: "text"
   end
 
@@ -11,6 +11,6 @@ defmodule ElixirGoogleForms.Forms.FormField do
   def changeset(form_field, attrs) do
     form_field
     |> cast(attrs, [:title, :type])
-    # |> validate_required([:title])
+    |> validate_required([:title])
   end
 end

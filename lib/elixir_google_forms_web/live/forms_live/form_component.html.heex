@@ -20,15 +20,9 @@
     %>
     <%= error_tag f, :active_until %>
 
-    <div class="form-fields-container">
-      <%= inputs_for f, :form_fields, fn v -> %>      
-        <div>
-          <%= label v, :title %>
-          <%= text_input v, :title %>
-          <%= error_tag v, :title %>  
-        </div>
-      <% end %>
-    </div>
+    <%= inputs_for f, :form_fields, fn v -> %>      
+      <%= form_field(%{field: v})  %>
+    <% end %>
 
     <div class="button-container">
       <button 

@@ -1,6 +1,12 @@
 defmodule ElixirGoogleForms.Forms.Form do
   use Ecto.Schema
   import Ecto.Changeset
+
+  import ElixirGoogleForms.Utils.Validation,
+    only: [
+      validate_current_or_future_date: 2
+    ]
+
   alias ElixirGoogleForms.Forms.FormField
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -18,6 +24,7 @@ defmodule ElixirGoogleForms.Forms.Form do
     |> cast(attrs, [:name, :active_until])
     |> cast_embed(:form_fields)
     |> validate_required([:name, :active_until])
+    |> validate_current_or_future_date(:active_until)
   end
 
   def put_form_fields_in_changeset(changeset, form_fields) do

@@ -72,4 +72,22 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
         {:noreply, assign(socket, changeset: changeset)}
     end
   end
+
+  defp form_field(assigns) do
+    ~H"""
+    <div class="form-field">
+      <div class="form-field__item">
+        <%= label @field, :title %>
+        <%= text_input @field, :title %>
+        <%= error_tag @field, :title %>
+      </div>
+
+      <div class="form-field__item">
+        <%= label @field, :type %>
+        <%= select @field, :type, ["text"], selected: "text" %>
+        <%= error_tag @field, :type %>
+      </div>
+    </div>
+    """
+  end
 end
