@@ -87,6 +87,11 @@ defmodule ElixirGoogleFormsWeb.FormsLive.FormComponent do
         <%= select @field, :type, ["text"], selected: "text" %>
         <%= error_tag @field, :type %>
       </div>
+
+      <div class="form-field__item">
+        <%= label @field, :delete, "Delete" %>
+        <%= checkbox @field, :delete %>
+      </div>
     </div>
     """
   end

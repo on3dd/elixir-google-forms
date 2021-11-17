@@ -5,6 +5,12 @@ defmodule ElixirGoogleForms.Forms.FormField do
   embedded_schema do
     field :title, :string
     field :type, :string, default: "text"
+    field :delete, :boolean, virtual: true
+  end
+
+  @doc false
+  def changeset(form_field, %{"delete" => "true"}) do
+    %{Ecto.Changeset.change(form_field, delete: true) | action: :delete}
   end
 
   @doc false
